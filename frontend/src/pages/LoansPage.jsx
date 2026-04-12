@@ -850,8 +850,8 @@ export default function LoansPage() {
                       min="1"
                       max="5"
                       className="w-full bg-surface-container border border-outline-variant/50 rounded-xl px-4 py-4 text-3xl text-primary font-black focus:border-primary focus:ring-4 focus:ring-primary/10 outline-none transition-all duration-300 shadow-inner text-center"
-                      value={ratingModal.score}
-                      onChange={(e) => setRatingModal({ ...ratingModal, score: Number(e.target.value) })}
+                      value={ratingModal.score === '' ? '' : ratingModal.score}
+                      onChange={(e) => setRatingModal({ ...ratingModal, score: e.target.value === '' ? '' : Number(e.target.value) })}
                     />
                   </div>
 
