@@ -45,7 +45,7 @@ export default function DashboardPage() {
         <div className="flex gap-4 sm:gap-6 text-right relative z-10 shrink-0">
            <div className="bg-surface/50 backdrop-blur-sm px-4 py-3 rounded-xl border border-outline-variant/50 shadow-sm flex flex-col justify-center">
              <div className="text-[10px] font-bold text-on-surface/50 uppercase tracking-widest mb-1 flex justify-end items-center gap-1"><Star size={12} className="text-primary"/> Reputación</div>
-             <div className="text-2xl font-bold text-on-surface">--<span className="text-sm text-on-surface/40 font-medium">/5.0</span></div>
+             <div className="text-2xl font-bold text-on-surface">{user?.avg_rating_as_lender > 0 ? Number(user.avg_rating_as_lender).toFixed(1) : '--'}<span className="text-sm text-on-surface/40 font-medium">/5.0</span></div>
            </div>
            <div className="bg-surface/50 backdrop-blur-sm px-4 py-3 rounded-xl border border-outline-variant/50 shadow-sm flex flex-col justify-center">
              <div className="text-[10px] font-bold text-on-surface/50 uppercase tracking-widest mb-1 flex justify-end items-center gap-1"><Home size={12} className="text-primary"/> Unidad</div>
