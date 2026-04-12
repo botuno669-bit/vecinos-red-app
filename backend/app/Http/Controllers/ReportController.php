@@ -49,7 +49,7 @@ class ReportController extends Controller
             ->orderByDesc('count')
             ->get();
 
-        $completedLoans = Loan::query()->where('status', 'completed')->count();
+        $completedLoans = Loan::query()->where('status', 'returned')->count();
 
         return response()->json([
             'summary' => [
