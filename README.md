@@ -1,68 +1,65 @@
-# 📦 Vecindad Red - Sistema de Préstamos Comunitarios
+# Vecindad Red - Sistema de Prestamos Comunitarios
 
-Un sistema avanzado y seguro diseñado para fomentar la economía circular dentro de un conjunto residencial o comunidad, permitiendo a los vecinos publicar objetos, solicitar préstamos, negociar plazos y calificar su experiencia, todo respaldado por una API robusta y un Frontend con la más exquisita estética moderna.
+## Integrantes del Grupo 1 y Roles Asignados
+- **Cristian**: Backend Developer (Logica del servidor, base de datos, endpoints de la API, autenticacion y manejo de errores)
+- **Castaño**: Frontend Developer (Interfaz de usuario, consumo de la API, experiencia de usuario y diseno responsivo)
+- **Bonilla**: Git Master + Documentador (Gestion del repositorio, ramas, Pull Requests, documentacion tecnica completa y coordinacion del despliegue)
 
----
+## Introduccion y Problema a Resolver
+Aplicacion transaccional desarrollada para conjuntos residenciales donde los vecinos comunican y publican objetos disponibles para prestamo (herramientas, electrodomesticos, implementos deportivos); otros vecinos los solicitan, y el sistema gestiona todo el ciclo del prestamo de forma segura desde la solicitud primaria hasta la devolucion.
 
-## 🛠 Arquitectura Tecnológica
+## Cumplimiento de Requisitos del Taller Evaluativo Final
 
-### Backend (Laravel 11)
-El corazón transaccional del sistema.
-- **Autenticación Segura:** API protegida con Sanctum, manejando barreras lógicas basadas en el estado del usuario (`is_active`). Autenticación basada en Bearer Tokens.
-- **Gestión de Base de Datos:** Migraciones, Seeders optimizados, relaciones Elocuentes (1:N, N:N) usando **PostgreSQL**.
-- **Reglas de Negocio Estrictas:**
-  - `FormRequests` para validaciones de datos y respuestas traducidas al español (Ej: `StoreLoanRequest`, `RegisterRequest`).
-  - Bloqueo de Auto-préstamos.
-  - Validación de solapamiento de préstamos (Evitando que un objeto prestado pueda volver a ser solicitado simultáneamente).
-- **Flujo de Estados (State Machine):** El ciclo de vida de un préstamo transcurre por los estados: `pending_owner` → `negotiating` → `pending_handover` → `active` → `return_pending` → `completed`.
-- **Generación Algorítmica:** Códigos seguros OTP (6 caracteres) para confirmación criptográfica de entregas físicas de objetos.
+### Requisitos Minimos Obligatorios:
+- **Minimo 5 tablas relacionadas con integridad referencial:** Cumplido. La base de datos posee 8 tablas normalizadas en Tercera Forma Normal (3FN) con Constraints restrictivos en cascada.
+- **Autenticacion de usuarios con 2 roles diferenciados:** Cumplido. Roles 'admin' y 'resident' implementados con middleware de autorizacion.
+- **Al menos 1 endpoint o vista de reporte que agregue datos:** Cumplido. El modulo "Control Central" (Dashboard Administrativo) realiza consultas agrupadas de metricas en la base de datos (Ej: Prestamos por categoria, Historial de deudas, etc).
+- **Stack tecnologico declarado desde el inicio:** Cumplido y listado en la arquitectura del proyecto inferior.
+- **Repositorio y Versionamiento:** Historial estricto con commits semanticos y ramas de despliegue controlado.
 
-### Frontend (React 18 + Vite)
-La interfaz inmersiva y de alto impacto visual.
-- **Estética Premium ("Glassmorphism"):** Diseño de Cristal con fondos desenfocados (`backdrop-blur`), elevaciones suaves y jerarquía de UI limpia usando Tailwind CSS.
-- **Animaciones Suaves:** Transiciones dinámicas impulsadas por `Framer Motion` (Efectos Pop, Staggering, Hover Cards), dándole una sensación fluida de Single Page Application móvil.
-- **Control Global de Estados:** Gestión integral empleando React Context (`useAuth`) para la sesión persistente e interceptores de seguridad `Axios` para rebotar sesiones caducadas.
-- **Modales Customizados:** La erradicación total de alertas nativas (`alert/prompt`) a favor de interfaces controladas con React, mejorando la inmersión de los flujos de códigos y operaciones.
-- **Exportación a PDF:** Impresión bajo demanda de Comprobantes Legales de préstamo a través de `jspdf` y `jspdf-autotable`.
+### Retos Tecnicos del Grupo 1 Resueltos:
+1. **Estados del prestamo:** Implementado el flujo transicional: disponible -> solicitado -> en prestamo -> devuelto -> retrasado.
+2. **Alertas y Fechas de Vencimiento:** Notificaciones del sistema para trazabilidad temporal de dias y penalidad de comportamiento.
+3. **Sistema de Calificaciones Bidireccional:** Implantacion de evaluacion doble ciega final donde tanto el prestatario como el prestamista se califican (1 a 5 estrellas).
+4. **Historial y Trazabilidad:** Bitacoras inmutables para disputas entre residentes y auditoria de la administracion.
 
----
+## Arquitectura Tecnologica y Stack
 
-## 🚀 Guía de Despliegue Local (Desarrollo)
+### Backend (Laravel 11) - Lenguaje PHP
+- **Autenticacion:** Resolucion mediante tokens Bearer a traves de Laravel Sanctum.
+- **Base de Datos:** Entorno PostgreSQL para asegurar robustez en transacciones cruzadas.
+- **Lógica de Negocio:** FormRequests para sanitizacion de datos, validacion ciclica temporal para evitar dobles prestamos simultaneos de un mismo item, y generacion encriptada de codigos OTP para confirmacion fisica.
 
-Asegúrate de contar con PHP (>=8.2), Composer, Node.js y una base de datos PostgreSQL activa.
+### Frontend (React 18 + Vite) - Lenguaje Javascript
+- **Estetica y framework:** Aplicacion responsiva creada enteramente con Tailwind CSS, implementando efectos visuales modernos.
+- **Control de Estado:** Hook nativo (Context API) y Axios Interceptors para retencion y depuracion de Tokens.
+- **Experiencia de Usuario:** Animaciones vectoriales gestionadas por Framer Motion y exportacion local en PDF mediante jsPDF para tickets comprobantes.
 
-**1. Levantando el Backend**
+## Instrucciones de Instalacion, Configuracion y Despliegue Local
+
+### Consideraciones Previas de Sistemas
+Es requerido contar en el ambiente operativo con PHP (>=8.2), Composer, Node.js y un servicio de PostgreSQL de libre disposicion.
+
+### Fase 1: Levantamiento del Servidor
 ```bash
 cd backend
 composer install
 cp .env.example .env
 php artisan key:generate
-# Configura las credenciales de BD en .env
+
+# Se debe configurar en .env las directrices DB_CONNECTION=pgsql, DB_HOST, DB_DATABASE, DB_USERNAME, DB_PASSWORD.
+
 php artisan migrate --seed
 php artisan serve
 ```
 
-**2. Levantando el Frontend**
+### Fase 2: Levantamiento del Cliente Visual
 ```bash
 cd frontend
 npm install
+
+# Instanciar el despliegue del modo de desarrollo. Las variables externas del backend apuntaran a localhost por defecto.
+
 npm run dev
-# Vite levantará un servidor local (por defecto: http://localhost:5173)
+# El entorno virtual estara servido en http://localhost:5173
 ```
-
----
-
-## 🧭 Flujo Funcional (Cómo usarlo frente al Jurado)
-
-1. **Dashboard:** El usuario observa un resumen analítico con sus métricas directas (Objetos prestados, reputación).
-2. **Registro e Inventario:** El usuario sube su objeto en `Mis Objetos`, dictando su estado físico y URL de imagen referencial.
-3. **Petición Circular:** Otro vecino revisa el `Catálogo` (animado y con filtros interactivos) y decide solicitar un objeto.
-4. **Negociación Viva:** Desde el menú `Préstamos`, el solicitante envía 7 días. El Propietario revisa la petición y decide enviar una "Contraoferta" exigiendo devolución en 3 días. El sistema lleva traza de los cambios.
-5. **Aprobación & Código OTP:** El Propietario aprueba la entrega. Aparecerá un Botón para ver el "Código de Entrega".
-6. **Mano a Mano:** El prestatario recibe las llaves del objeto en la vida real, y para cerrar el trato cibernético recibe el "Código OTP" del dueño y lo ingresa en su propio panel.
-7. **Comprobante Comercial:** Tras activarse el préstamo, cualquiera puede generar un Recibo en **PDF** detallando el pacto acordado.
-
----
-
-**Nota Final:**
-La plataforma ha sido sanitizada contra inyecciones e incluye gestión meticulosa de respuestas HTTP (422 Unprocessable Entity, 401 Unauthorized, 404 Not Found), garantizando estabilidad inquebrantable durante su uso.
