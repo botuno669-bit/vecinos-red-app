@@ -3,7 +3,7 @@ import api from '../services/api';
 import { useAuth } from '../context/useAuth';
 import { ArrowLeftRight, Clock, CheckCircle, AlertTriangle, MessageSquare, ShieldCheck, FileText, Info } from 'lucide-react';
 import jsPDF from 'jspdf';
-import 'jspdf-autotable';
+import autoTable from 'jspdf-autotable';
 import { motion, AnimatePresence } from 'framer-motion';
 
 export default function LoansPage() {
@@ -236,7 +236,7 @@ export default function LoansPage() {
     doc.text(`Estado del Trámite: ${loan.workflow_label}`, 20, 66);
     
     // Generar la tabla de datos
-    doc.autoTable({
+    autoTable(doc, {
       startY: 80,
       head: [['Detalle del Acuerdo', 'Información']],
       body: [
