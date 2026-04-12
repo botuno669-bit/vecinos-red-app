@@ -1,0 +1,76 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-surface text-on-surface font-sans antialiased;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-semibold tracking-tight text-on-surface;
+  }
+}
+
+@layer components {
+  /* Buttons */
+  .btn {
+    @apply px-4 py-2.5 text-sm font-medium rounded-lg transition-all duration-200 cursor-pointer text-center inline-flex justify-center items-center gap-2;
+  }
+  .btn-primary {
+    @apply bg-primary text-on-primary hover:bg-primary-dim hover:shadow-soft active:scale-95;
+  }
+  .btn-secondary {
+    @apply bg-surface-container-low text-on-surface hover:bg-surface-container active:scale-95 border border-outline-variant;
+  }
+  .btn-icon {
+    @apply p-2 rounded-full hover:bg-surface-container text-on-surface/70 hover:text-primary transition-colors;
+  }
+
+  /* Typography */
+  .display-lg {
+    @apply text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-tight;
+  }
+  .headline-sm {
+    @apply text-xl md:text-2xl font-semibold;
+  }
+
+  /* Inputs */
+  .input {
+    @apply w-full bg-surface-container-low text-on-surface border border-outline-variant px-4 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200 placeholder-outline;
+  }
+  
+  .label {
+    @apply block text-sm font-medium text-on-surface/70 mb-1.5;
+  }
+
+  /* Cards */
+  .card {
+    @apply bg-surface-container-low border border-outline-variant rounded-xl shadow-soft p-6 transition-all duration-300;
+  }
+  .card-hover {
+    @apply hover:shadow-float hover:-translate-y-1;
+  }
+
+  .glass-header {
+    @apply bg-surface/80 backdrop-blur-md border-b border-outline-variant sticky top-0 z-50;
+  }
+  
+  .badge {
+    @apply px-2.5 py-1 rounded-full text-xs font-semibold;
+  }
+  .badge-primary {
+    @apply bg-primary-container text-primary-dim;
+  }
+  .badge-success {
+    @apply bg-success-container text-success;
+  }
+  .badge-warning {
+    @apply bg-warning-container text-warning;
+  }
+  .badge-neutral {
+    @apply bg-surface-container text-on-surface/60;
+  }
+}
+
