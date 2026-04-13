@@ -32,3 +32,5 @@
 
 - Cristian Gutierrez: Update project meta info preparation
 
+- Cristian Gutierrez: Add placeholder for structure future tests
+
