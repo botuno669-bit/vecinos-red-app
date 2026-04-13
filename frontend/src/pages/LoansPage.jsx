@@ -34,7 +34,9 @@ export default function LoansPage() {
   }, []);
 
   const handleAction = async (actionFn, successMsg) => {
+    if (loading) return; // Prevenir múltiples clics
     try {
+      setLoading(true);
       setError('');
       setMessage('');
       await actionFn();
@@ -45,6 +47,8 @@ export default function LoansPage() {
       const errMsg = err.response?.data?.message || err.response?.data?.error || 'No se pudo procesar la solicitud (Fallo de servidor).';
       setError(errMsg);
       setTimeout(() => setError(''), 7000);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -148,6 +152,7 @@ export default function LoansPage() {
     const successMsg = inputCodeModal.actionType === 'handover' ? '¡Entrega confirmada! Cuida mucho el objeto.' : 'Objeto devuelto existosamente. ¡Gracias por usar la plataforma!';
 
     try {
+      setLoading(true);
       await api.post(`/loans/${inputCodeModal.loan.id}/${endpoint}`, { code: inputCodeModal.code });
       setMessage(successMsg);
       setTimeout(() => setMessage(''), 5000);
@@ -156,11 +161,15 @@ export default function LoansPage() {
     } catch (err) {
       const errMsg = err.response?.data?.message || err.response?.data?.error || 'Código incorrecto o inválido.';
       setInputCodeModal(prev => ({ ...prev, errorMsg: errMsg }));
+    } finally {
+      setLoading(false);
     }
   }
 
   async function initiateReturn(loan) {
+    if (loading) return;
     try {
+      setLoading(true);
       const { data } = await api.post(`/loans/${loan.id}/start-return`);
       setDisplayCodeModal({
          isOpen: true,
@@ -173,6 +182,8 @@ export default function LoansPage() {
     } catch (err) {
       setError(err.response?.data?.message || 'Error al intentar iniciar la devolución.');
       setTimeout(() => setError(''), 5000);
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -642,8 +653,8 @@ export default function LoansPage() {
                     />
                   </div>
                   
-                  <button onClick={confirmNegotiation} className="btn btn-primary w-full py-4 shadow-md shadow-primary/20 hover:shadow-lg hover:-translate-y-0.5 transition-all text-base font-bold flex justify-center items-center gap-2">
-                     <ArrowLeftRight size={20} /> Proponer Trato
+                  <button disabled={loading} onClick={confirmNegotiation} className="btn btn-primary w-full py-4 shadow-md shadow-primary/20 hover:shadow-lg hover:-translate-y-0.5 transition-all text-base font-bold flex justify-center items-center gap-2">
+                     {loading ? 'Procesando...' : <><ArrowLeftRight size={20} /> Proponer Trato</>}
                   </button>
                 </div>
              </motion.div>
@@ -698,8 +709,8 @@ export default function LoansPage() {
                     <p className="text-xs text-on-surface/50 text-center mt-3 font-semibold">Puedes modificar la propuesta si solo deseas prestárselo por menos tiempo sin necesidad de negociar.</p>
                   </div>
                   
-                  <button onClick={confirmApproval} className="btn bg-success hover:bg-success/90 text-white w-full py-4 shadow-md shadow-success/20 hover:shadow-lg hover:-translate-y-0.5 transition-all text-base font-bold flex justify-center items-center gap-2">
-                     <CheckCircle size={20} /> Proceder a la Entrega
+                  <button disabled={loading} onClick={confirmApproval} className="btn bg-success hover:bg-success/90 text-white w-full py-4 shadow-md shadow-success/20 hover:shadow-lg hover:-translate-y-0.5 transition-all text-base font-bold flex justify-center items-center gap-2">
+                     {loading ? 'Aprobando...' : <><CheckCircle size={20} /> Proceder a la Entrega</>}
                   </button>
                 </div>
              </motion.div>
@@ -793,8 +804,8 @@ export default function LoansPage() {
                     onChange={(e) => setInputCodeModal({ ...inputCodeModal, code: e.target.value.toUpperCase(), errorMsg: '' })}
                   />
                   
-                  <button onClick={submitInputCode} className="btn bg-warning hover:bg-warning/90 text-yellow-950 w-full py-4 shadow-md shadow-warning/20 hover:shadow-lg transition-all text-base font-bold flex justify-center items-center gap-2">
-                     <CheckCircle size={20} /> Validar y Confirmar
+                  <button disabled={loading} onClick={submitInputCode} className="btn bg-warning hover:bg-warning/90 text-yellow-950 w-full py-4 shadow-md shadow-warning/20 hover:shadow-lg transition-all text-base font-bold flex justify-center items-center gap-2">
+                     {loading ? 'Verificando...' : <><CheckCircle size={20} /> Validar y Confirmar</>}
                   </button>
                 </div>
              </motion.div>
@@ -832,8 +843,8 @@ export default function LoansPage() {
                     <button onClick={() => setConfirmModal({ isOpen: false, message: '', confirmAction: null })} className="btn btn-secondary flex-1 shadow-sm transition-all text-sm font-bold">
                        Atrás
                     </button>
-                    <button onClick={() => { confirmModal.confirmAction(); setConfirmModal({ isOpen: false, message: '', confirmAction: null }); }} className="btn bg-error hover:bg-error/90 text-white flex-1 shadow-md shadow-error/20 hover:shadow-lg transition-all text-sm font-bold flex justify-center items-center gap-2">
-                       Proceder
+                    <button disabled={loading} onClick={() => { confirmModal.confirmAction(); setConfirmModal({ isOpen: false, message: '', confirmAction: null }); }} className="btn bg-error hover:bg-error/90 text-white flex-1 shadow-md shadow-error/20 hover:shadow-lg transition-all text-sm font-bold flex justify-center items-center gap-2">
+                       {loading ? '...' : 'Proceder'}
                     </button>
                   </div>
                 </div>
@@ -893,8 +904,8 @@ export default function LoansPage() {
                     />
                   </div>
                   
-                  <button onClick={confirmRating} className="btn btn-primary w-full py-4 shadow-md shadow-primary/20 hover:shadow-lg hover:-translate-y-0.5 transition-all text-base font-bold flex justify-center items-center gap-2">
-                     <CheckCircle size={20} /> Guardar Evaluación
+                  <button disabled={loading} onClick={confirmRating} className="btn btn-primary w-full py-4 shadow-md shadow-primary/20 hover:shadow-lg hover:-translate-y-0.5 transition-all text-base font-bold flex justify-center items-center gap-2">
+                     {loading ? 'Guardando...' : <><CheckCircle size={20} /> Guardar Evaluación</>}
                   </button>
                 </div>
              </motion.div>
