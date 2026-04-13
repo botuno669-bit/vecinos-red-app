@@ -18,3 +18,5 @@
 
 - Sebastian Castaño: Reorganize internal documentation logs
 
+- Sebastian Castaño: Enhance logging configuration structure
+
