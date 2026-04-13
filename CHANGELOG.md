@@ -22,3 +22,5 @@
 
 - Cristian Gutierrez: Update project documentation structure
 
+- Cristian Gutierrez: Fix minor formatting in changelog
+
