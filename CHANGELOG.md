@@ -38,3 +38,5 @@
 
 - Cristian Gutierrez: Reorganize internal documentation logs
 
+- Cristian Gutierrez: Enhance logging configuration structure
+
