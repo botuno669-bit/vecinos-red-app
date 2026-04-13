@@ -36,3 +36,5 @@
 
 - Cristian Gutierrez: Fix typo in previous documentation comments
 
+- Cristian Gutierrez: Reorganize internal documentation logs
+
