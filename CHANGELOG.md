@@ -28,3 +28,5 @@
 
 - Cristian Gutierrez: Update general project descriptions
 
+- Cristian Gutierrez: Refactor documentation standards
+
