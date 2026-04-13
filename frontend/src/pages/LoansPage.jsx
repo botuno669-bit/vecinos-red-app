@@ -159,21 +159,6 @@ export default function LoansPage() {
     }
   }
 
-  async function getDeliveryCode(loan) {
-    try {
-      const { data } = await api.get(`/loans/${loan.id}/handover-code`);
-      setDisplayCodeModal({
-         isOpen: true,
-         code: data.delivery_code,
-         title: 'Código de Entrega',
-         message: 'Díctale o muéstrale este código de seguridad a tu vecino. Él deberá ingresarlo en su plataforma para verificar y formalizar que le has entregado el objeto.'
-      });
-    } catch (err) {
-       setError(err.response?.data?.message || 'No se pudo obtener el código de seguridad.');
-       setTimeout(() => setError(''), 5000);
-    }
-  }
-
   async function initiateReturn(loan) {
     try {
       const { data } = await api.post(`/loans/${loan.id}/start-return`);
@@ -288,7 +273,37 @@ export default function LoansPage() {
     }
 
     if (isOwner && loan.workflow_state === 'pending_handover') {
-      actions.push(<button key="code" className="btn btn-secondary text-xs flex-1" onClick={() => getDeliveryCode(loan)}>Ver código para entregar</button>);
+      actions.push(
+        <button 
+          key="code" 
+          className="btn btn-secondary text-xs flex-1" 
+          onClick={() => setDisplayCodeModal({
+            isOpen: true,
+            code: loan.delivery_code,
+            title: 'Código de Entrega',
+            message: 'Díctale o muéstrale este código de seguridad a tu vecino. Él deberá ingresarlo en su plataforma para verificar y formalizar que le has entregado el objeto.'
+          })}
+        >
+          Ver código para entregar
+        </button>
+      );
+    }
+    
+    if (!isOwner && ['return_pending', 'overdue_return_pending'].includes(loan.workflow_state)) {
+      actions.push(
+        <button 
+          key="view-return-code" 
+          className="btn btn-secondary text-xs flex-1" 
+          onClick={() => setDisplayCodeModal({
+            isOpen: true,
+            code: loan.return_code,
+            title: 'Código de Devolución',
+            message: 'Debes darle este código al dueño del objeto. Él deberá ingresarlo en su sesión para confirmar que le has entregado el objeto de vuelta.'
+          })}
+        >
+          Ver código de devolución
+        </button>
+      );
     }
 
     if (!isOwner && ['active', 'overdue'].includes(loan.workflow_state)) {
