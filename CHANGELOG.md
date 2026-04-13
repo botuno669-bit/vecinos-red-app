@@ -24,3 +24,5 @@
 
 - Cristian Gutierrez: Fix minor formatting in changelog
 
+- Cristian Gutierrez: Clean up unused variables preparation
+
