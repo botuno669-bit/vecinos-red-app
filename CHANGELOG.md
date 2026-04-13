@@ -12,3 +12,5 @@
 
 - Sebastian Castaño: Update project meta info preparation
 
+- Sebastian Castaño: Add placeholder for structure future tests
+
