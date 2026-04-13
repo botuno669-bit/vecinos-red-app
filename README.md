@@ -1,9 +1,9 @@
 # Vecindad Red - Sistema de Prestamos Comunitarios
 
 ## Integrantes del Grupo 1 y Roles Asignados
-- **castaño**: Backend Developer (Logica del servidor, base de datos, endpoints de la API, autenticacion y manejo de errores)
-- **bonilla**: Frontend Developer (Interfaz de usuario, consumo de la API, experiencia de usuario y diseno responsivo)
-- **cristian**: Git Master + Documentador (Gestion del repositorio, ramas, Pull Requests, documentacion tecnica completa y coordinacion del despliegue)
+- **Castaño**: Backend Developer (Logica del servidor, base de datos, endpoints de la API, autenticacion y manejo de errores)
+- **Bonilla**: Frontend Developer (Interfaz de usuario, consumo de la API, experiencia de usuario y diseno responsivo)
+- **Cristian**: Git Master + Documentador (Gestion del repositorio, ramas, Pull Requests, documentacion tecnica completa y coordinacion del despliegue)
 
 ## Introduccion y Problema a Resolver
 Aplicacion transaccional desarrollada para conjuntos residenciales donde los vecinos comunican y publican objetos disponibles para prestamo (herramientas, electrodomesticos, implementos deportivos); otros vecinos los solicitan, y el sistema gestiona todo el ciclo del prestamo de forma segura desde la solicitud primaria hasta la devolucion.
