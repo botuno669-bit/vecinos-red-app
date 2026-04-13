@@ -14,3 +14,5 @@
 
 - Sebastian Castaño: Add placeholder for structure future tests
 
+- Sebastian Castaño: Fix typo in previous documentation comments
+
