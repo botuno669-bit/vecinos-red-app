@@ -337,7 +337,7 @@ export default function LoansPage() {
       actions.push(<button key="confirm-return" className="btn btn-primary text-xs flex-1" onClick={() => openInputCodeModal(loan, 'return')}>Confirmar que ya me lo entregó</button>);
     }
 
-    if (loan.workflow_state === 'completed') {
+    if (loan.workflow_state === 'completed' && !loan.user_has_rated) {
       actions.push(<button key="rate" className="btn btn-secondary text-xs flex-1" onClick={() => rateLoan(loan)}>Dejar Calificación</button>);
     }
 

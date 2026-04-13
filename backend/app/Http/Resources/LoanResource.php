@@ -47,6 +47,7 @@ class LoanResource extends JsonResource
             'ratings' => $this->whenLoaded('ratings', fn () => RatingResource::collection($this->ratings)),
             'delivery_code' => $this->when($request->user()->id == $this->item->user_id, $this->delivery_code),
             'return_code' => $this->when($request->user()->id == $this->borrower_id, $this->return_code),
+            'user_has_rated' => $this->ratings()->where('rater_id', $request->user()->id)->exists(),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];
