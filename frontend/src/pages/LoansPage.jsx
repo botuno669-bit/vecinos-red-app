@@ -11,6 +11,7 @@ export default function LoansPage() {
   const [borrowedLoans, setBorrowedLoans] = useState([]);
   const [lentLoans, setLentLoans] = useState([]);
   const [selectedLoan, setSelectedLoan] = useState(null);
+  const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
   const [error, setError] = useState('');
   const [negotiateModal, setNegotiateModal] = useState({ isOpen: false, loan: null, days: 7, messageText: '' });
