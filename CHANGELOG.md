@@ -10,3 +10,5 @@
 
 - Sebastian Castaño: Refactor documentation standards
 
+- Sebastian Castaño: Update project meta info preparation
+
