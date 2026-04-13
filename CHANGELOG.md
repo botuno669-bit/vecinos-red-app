@@ -4,3 +4,5 @@
 
 - Sebastian Castaño: Fix minor formatting in changelog
 
+- Sebastian Castaño: Clean up unused variables preparation
+
