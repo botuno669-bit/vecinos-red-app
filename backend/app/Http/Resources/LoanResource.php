@@ -45,8 +45,8 @@ class LoanResource extends JsonResource
                 'created_at' => $entry->created_at,
             ])),
             'ratings' => $this->whenLoaded('ratings', fn () => RatingResource::collection($this->ratings)),
-            'delivery_code' => $this->when($request->user()->id === $this->item->user_id, $this->delivery_code),
-            'return_code' => $this->when($request->user()->id === $this->borrower_id, $this->return_code),
+            'delivery_code' => $this->when($request->user()->id == $this->item->user_id, $this->delivery_code),
+            'return_code' => $this->when($request->user()->id == $this->borrower_id, $this->return_code),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];

@@ -277,12 +277,18 @@ export default function LoansPage() {
         <button 
           key="code" 
           className="btn btn-secondary text-xs flex-1" 
-          onClick={() => setDisplayCodeModal({
-            isOpen: true,
-            code: loan.delivery_code,
-            title: 'Código de Entrega',
-            message: 'Díctale o muéstrale este código de seguridad a tu vecino. Él deberá ingresarlo en su plataforma para verificar y formalizar que le has entregado el objeto.'
-          })}
+          onClick={async () => {
+            if (!loan.delivery_code) {
+              const { data } = await api.get(`/loans/${loan.id}`);
+              loan.delivery_code = data.data.delivery_code;
+            }
+            setDisplayCodeModal({
+              isOpen: true,
+              code: loan.delivery_code,
+              title: 'Código de Entrega',
+              message: 'Díctale o muéstrale este código de seguridad a tu vecino. Él deberá ingresarlo en su plataforma para verificar y formalizar que le has entregado el objeto.'
+            });
+          }}
         >
           Ver código para entregar
         </button>
@@ -294,12 +300,18 @@ export default function LoansPage() {
         <button 
           key="view-return-code" 
           className="btn btn-secondary text-xs flex-1" 
-          onClick={() => setDisplayCodeModal({
-            isOpen: true,
-            code: loan.return_code,
-            title: 'Código de Devolución',
-            message: 'Debes darle este código al dueño del objeto. Él deberá ingresarlo en su sesión para confirmar que le has entregado el objeto de vuelta.'
-          })}
+          onClick={async () => {
+            if (!loan.return_code) {
+              const { data } = await api.get(`/loans/${loan.id}`);
+              loan.return_code = data.data.return_code;
+            }
+            setDisplayCodeModal({
+              isOpen: true,
+              code: loan.return_code,
+              title: 'Código de Devolución',
+              message: 'Debes darle este código al dueño del objeto. Él deberá ingresarlo en su sesión para confirmar que le has entregado el objeto de vuelta.'
+            });
+          }}
         >
           Ver código de devolución
         </button>
