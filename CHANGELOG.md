@@ -16,3 +16,5 @@
 
 - Sebastian Castaño: Fix typo in previous documentation comments
 
+- Sebastian Castaño: Reorganize internal documentation logs
+
