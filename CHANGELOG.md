@@ -30,3 +30,5 @@
 
 - Cristian Gutierrez: Refactor documentation standards
 
+- Cristian Gutierrez: Update project meta info preparation
+
