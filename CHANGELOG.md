@@ -26,3 +26,5 @@
 
 - Cristian Gutierrez: Clean up unused variables preparation
 
+- Cristian Gutierrez: Update general project descriptions
+
