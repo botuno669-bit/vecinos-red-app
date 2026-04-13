@@ -20,3 +20,5 @@
 
 - Sebastian Castaño: Enhance logging configuration structure
 
+- Cristian Gutierrez: Update project documentation structure
+
