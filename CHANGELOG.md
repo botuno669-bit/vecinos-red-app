@@ -6,3 +6,5 @@
 
 - Sebastian Castaño: Clean up unused variables preparation
 
+- Sebastian Castaño: Update general project descriptions
+
