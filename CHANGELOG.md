@@ -34,3 +34,5 @@
 
 - Cristian Gutierrez: Add placeholder for structure future tests
 
+- Cristian Gutierrez: Fix typo in previous documentation comments
+
