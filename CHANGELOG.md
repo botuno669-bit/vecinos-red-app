@@ -8,3 +8,5 @@
 
 - Sebastian Castaño: Update general project descriptions
 
+- Sebastian Castaño: Refactor documentation standards
+
